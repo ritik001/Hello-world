@@ -1,0 +1,102 @@
+<html>
+
+<head>
+  <title>xkcd clone</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script>
+    var count = 1;
+    var json;
+
+
+    function first() {
+      url = 'http://xkcd.com/' + 1 + '/info.0.json';
+      xkcd_api(url);
+    }
+
+    function last() {
+      url = 'https://xkcd.com/info.0.json';
+      xkcd_api(url);
+    }
+
+    function previous() {
+
+      if (count > 0) {
+        count = count - 1;
+      }
+      else {
+        count = 0;
+      }
+      url = 'http://xkcd.com/' + count + '/info.0.json';
+      xkcd_api(url);
+    }
+
+    function next() {
+      count = count + 1;
+      url = 'http://xkcd.com/' + count + '/info.0.json';
+      xkcd_api(url);
+    }
+
+    function random() {
+      count = Math.floor((Math.random() * 100) + 1);
+      url = 'http://xkcd.com/' + count + '/info.0.json';
+      xkcd_api(url);
+    }
+
+    function xkcd_api(url) {
+      const Http = new XMLHttpRequest();
+
+      Http.open("GET", url);
+      Http.send();
+      Http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          json = Http.responseText;
+          var obj = JSON.parse(json);
+          document.getElementById('comic_title').innerHTML = obj.title;
+          document.getElementById('comic_image').src = obj.img;
+        }
+      };
+
+    }
+  </script>
+</head>
+
+<body onload="first();">
+  <div class="header">
+    <h1 align="center">xkcd clone</h1>
+    <p id="comic_title" align="center" text-align="center">Comic title</p>
+    <div class="container" align="center">
+      <div class="btn">
+        <button type="button" class="btn btn-primary" onclick="first();">|&lt;</button>
+        <button type="button" class="btn btn-primary" onclick="previous();">&lt;PREV</button>
+        <button type="button" class="btn btn-primary" onclick="random();">RANDOM</button>
+        <button type="button" class="btn btn-primary" onclick="next();">NEXT&gt;</button>
+        <button type="button" class="btn btn-primary" onclick="last();">&gt;|</button>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div id="cimg" align="center">
+      <img id="comic_image" src="">
+    </div>
+    <div class="container" align="center">
+      <div class="btn">
+        <button type="button" class="btn btn-primary" onclick="first();">|&lt;</button>
+        <button type="button" class="btn btn-primary" onclick="previous();">&lt;PREV</button>
+        <button type="button" class="btn btn-primary" onclick="random();">RANDOM</button>
+        <button type="button" class="btn btn-primary" onclick="next();">NEXT&gt;</button>
+        <button type="button" class="btn btn-primary" onclick="last();">&gt;|</button>
+      </div>
+    </div>
+</body>
+
+</html>
