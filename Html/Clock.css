@@ -1,0 +1,15 @@
+body{
+    background-color: black;
+}
+
+.circle {
+    height: 400px;
+    width: 400px;
+    background-color: white;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+#hour,#min,#sec{
+  transform-origin: 200px 200px;
+}
