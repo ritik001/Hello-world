@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Live Editor</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <style>
+    textarea,
+    iframe {
+      border: 2px solid #400040;
+      height: 670px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="js/bootstrap.min.js"></script>
+  <h3 class="text-center" style="color: black"><b>Welcome to Live Editor</b></h3>
+  <br/>
+  <br/> &nbsp;&nbsp;
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="runCode();">Run Code </button>
+    <button type="button" class="btn btn-primary" onclick="clearPane();">Clear display pane </button>
+    <button type="button" class="btn btn-primary" onclick="clearCode();">Clear code area </button>
+  </div>
+  <br/>
+  <br/>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6 col-md-6" style="float:left">
+        <form>
+          <textarea id="source" placeholder="Enter Code here" onkeyup="runCode();"></textarea>
+        </form>
+      </div>
+
+      <div class="col-xs-6 col-md-6" style="float:right">
+        <iframe id="target"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function runCode() {
+      var content = document.getElementById('source').value;
+
+      var iframe = document.getElementById('target');
+      iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument) ? iframe.contentDocument.document : iframe.contentDocument;
+      iframe.document.open();
+      iframe.document.write(content);
+      iframe.document.close();
+    }
+
+    function clearCode() {
+      document.getElementById('source').value = "";
+    }
+
+    function clearPane() {
+      var temp = "";
+      var iframe = document.getElementById('target');
+      iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument) ? iframe.contentDocument.document : iframe.contentDocument;
+      iframe.document.open();
+      iframe.document.write(temp);
+      iframe.document.close();
+    }
+
+  </script>
+
+</body>
+
+</html>
